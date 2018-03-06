@@ -158,16 +158,3 @@ plt.legend(['Data', ' Regression'], loc='best')
 plt.xlabel('{} Returns'.format(INDEXES[0]))
 plt.ylabel('{} Returns'.format(INDEXES[1]))
 plt.title('Returns Linear Regression: \n\n y = {:.5f} * x + {:.5f}'.format(fit[0],fit[1]))
-
-
-# -----------------------------------------------------------------------------------------
-
-# bovespa-IBOV:
-# pedtrobras-PETR3/PETR4, usiminas-USIM5, vale-VALE3, gerdau-GGBR4, embraer-EMBR3,
-# eletrobras-ELET3/ELET6, suzano-SUZB5
-# ambev-ABEV3, bb-BBAS3, itau-ITUB4, localiza-RENT3, natura-NATU3, mrv-MRVE3, 
-
-# dow jones-:
-# chevron-CVX, boeing-BA, caterpillar-CAT, esso-XOM, ibm-IBM, 3m-MMM
-# wallmart-WMT, visa-V, nike-NKE, microsoft-MSFT, intel-INTC,, apple-AAPL,
-# mcdonalds-MCD, cocacola-KO
