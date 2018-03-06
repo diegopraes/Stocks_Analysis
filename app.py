@@ -20,23 +20,36 @@ def menu():
     print('==================================================================')
     print('\nMenu():')
     
-    user_input = input(" 'g' to get indexes data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
+    user_input = input(" 'g' to get indexes data\n\n 'p' to plot data\n\n 'r' to regression \n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
-    while user_input not in ['g', 'a', 'd', 'q']:
+    while user_input not in ['g', 'p', 'r', 'a', 'd', 'q']:
         user_input = input("\n 'g' get indexes data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
     if user_input != 'q':   
         if user_input == 'g':
             import get_indexes
+            from get_indexes import all_index
+            all_index()
+              
+        elif user_input == 'p':
+            import get_indexes
+            from get_indexes import plot_index
+            plot_index()
+            
+        elif user_input == 'r':
+            import get_indexes
+            from get_indexes import regr_index
+            regr_index()            
         
         elif user_input == 'a':
             import analysis
         
         elif user_input == 'd':
             from database import database_access
-            database_access()
-    
+            database_access()    
     
 menu()
+
+
 
 
