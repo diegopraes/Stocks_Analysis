@@ -20,14 +20,14 @@ def menu():
     print('==================================================================')
     print('\nMenu():')
     
-    user_input = input(" 'r' real time data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
+    user_input = input(" 'g' to get indexes data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
-    while user_input not in ['r', 'a', 'd', 'q']:
-        user_input = input("\n 'r' real time data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
+    while user_input not in ['g', 'a', 'd', 'q']:
+        user_input = input("\n 'g' get indexes data\n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
     if user_input != 'q':   
-        if user_input == 'r':
-            import realtime
+        if user_input == 'g':
+            import get_indexes
         
         elif user_input == 'a':
             import analysis
@@ -35,5 +35,8 @@ def menu():
         elif user_input == 'd':
             from database import database_access
             database_access()
-            
+    
+    
 menu()
+
+
