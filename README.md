@@ -10,18 +10,26 @@ Stocks Analysis Python
 
 Menu():
 
- 'i' to evaluate 1 Index                  # evaluate prices of Index in date input, considering portfolio value and 1% risk
+ 'i' to evaluate 1 Index                 
+ # evaluate prices of Index in date input, considering portfolio value and 1% risk
 
- 'g' to get index list data               # 
+ 'g' to get index list data               
+ # evaluate a list of indexes, considering portfolio value and 1% risk
 
- 'p' to plot data                         # 
+ 'p' to plot data                        
+ # plot data: normal and candlestick
 
- 'm' to plot rolling mean                 # 
+ 'm' to plot rolling mean                 
+ # plot moving average
 
- 'r' to regression                        # 
+ 'r' to regression                        
+ # calculate regression of prices values
 
- 'a' to correlation analysis              # 
+ 'a' to correlation analysis              
+ # calculate the correlation between two indexes
 
- 'd' to database access                   # 
+ 'd' to database access                   
+ # API to relational database using PostgreSQL
 
- 'q' to quit                              # 
+ 'q' to quit                              
+ # quit the program
