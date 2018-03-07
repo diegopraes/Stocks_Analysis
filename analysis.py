@@ -45,7 +45,6 @@ dataframe1.to_csv('C:/Users/Asus/Desktop/Economia/Análises/Data/{}.txt'.format(
 dataframe2.to_csv('C:/Users/Asus/Desktop/Economia/Análises/Data/{}.txt'.format(INDEXES[1]),
                   sep='\t', encoding='utf-8')
 
-print(dataframe1)
 dataframe1[column].plot(subplots=False, grid=True, style='r', figsize=(8, 6))
 plt.title('Stock Market {}'.format(INDEXES[0]))
 plt.legend()
@@ -53,39 +52,10 @@ plt.show()
 
 print('\n\n\n')
 
-print(dataframe2)
 dataframe2[column].plot(subplots=False, grid=True, style='r', figsize=(8, 6))
 plt.title('Stock Market {}'.format(INDEXES[1]))
 plt.legend()
 plt.show()
-
-# ROLLING MEAN PLOT -------------------------------------------------------------------------
-
-class rol_mean_plot:
-    def __init__(self, data, window):
-        self.data = data
-        self.window = window    
-       
-    def rol_mean(self):
-        return self.data.rolling(window=self.window).mean().plot(subplots=False, 
-                                grid=True, figsize=(8, 6)) 
-        
-    def plot(y, window):
-        rol_mean_plot.rol_mean(rol_mean_plot(y, window))
-
-print('\n\n\n')
-
-for data in [dataframe1[column], dataframe2[column]]:
-    for index in INDEXES:      
-        label = []
-        window = [5, 30, 60, 120]
-        for i in window:
-            rol_mean_plot.plot(data, i)
-            label.append(i) 
-        
-    plt.title('Stock Market Index Rolling Mean')
-    plt.legend(label, loc='best')
-    plt.show()
 
 
 # DATA CONVERSION ---------------------------------------------------------------------------
