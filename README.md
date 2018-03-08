@@ -3,9 +3,12 @@ Stock Index Analysis
 # Created on Sun Mar  4 17:50:47 2018   @author: DiegoPraes
 
 This program is a tool to stocks prices analysis.
+It doesn't need to be installed. Just run it. Python is necessary!
 
 ==================================================================
+
 Stocks Analysis Python
+
 ==================================================================
 
 Menu():
