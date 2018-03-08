@@ -14,7 +14,7 @@ Stocks Analysis Python
 Menu():
 
  's' to search Index                 
- # evaluate regression of data in date input and return for the positive slop regression
+ # evaluate regression of data in date input and return the indexes with positive slop regression
 
  'i' to evaluate 1 Index                 
  # evaluate prices of Index in date input, considering portfolio value and 1% risk
