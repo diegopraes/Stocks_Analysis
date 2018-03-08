@@ -102,6 +102,8 @@ def candlestick_rol_mean():
     window2 = int(input('Enter the moving average window 2:\n\n>>> '))
     quotes['MA{}'.format(window2)] = quotes_total[column].rolling(window2).mean()
     
+    quotes['MA10'] = quotes_total[column].rolling(10).mean()
+    
     quotes.reset_index(inplace=True)
     
     fig, ax = plt.subplots(figsize=(8,6))
@@ -113,48 +115,7 @@ def candlestick_rol_mean():
     candlestick2_ohlc(ax, quotes['Open'], quotes['High'], quotes['Low'], quotes['Close'], width=0.6)
     quotes['MA{}'.format(window1)].plot(ax=ax)
     quotes['MA{}'.format(window2)].plot(ax=ax)
+    quotes['MA10'].plot(ax=ax)
     
     plt.legend(['Rolling Mean {} days'.format(window1), 'Rolling Mean {} days'.format(window2)], loc='upper left')    
     plt.show()
-    
-    
-
-        
-
-    
-
-    
-    
-    
-        
-    
-    
-    
-   
-
-
-
-
-
-
-
-
-# Trying to change the x axis to dates ------------------------------------------
-"""
-xdate = [datetime.datetime.fromtimestamp(i) for i in dateRange]
-ax.xaxis.set_major_locator(ticker.MaxNLocator(6))
-
-def mydate(x,pos):
-    try:
-        return xdate[int(x)]
-    except IndexError:
-        return ''
-
-ax.xaxis.set_major_formatter(ticker.FuncFormatter(mydate))
-
-fig.autofmt_xdate()
-fig.tight_layout()
-
-
-plt.show()
-"""
