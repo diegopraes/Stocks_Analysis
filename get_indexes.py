@@ -28,15 +28,18 @@ def data_index():
     try:
         ds = Data_synt.get(Data_synt(index, date))        
         var = float(ds['Close'][0]) - float(ds['Open'][0])
-        s = portifolio/100/var
+        s = abs(portifolio/100/var)
         shares = float(portifolio)/float(ds['Open'][0])
         print('\n\nIndex: {}\n'.format(index))
         print(ds)
         print('\n\ndate: {}'.format(date))
-        print('\nDaily variation: {:.2f}'.format(var))
-        print('\nBuy {:.2f} shares to 1% risk'.format(s))
+        print('\n\nPortifolio: R$ {:.2f}'.format(portifolio))
+        print('\n>>> Risk : {:.2f}'.format(abs(s*var)))
+        print('\n>>> Daily variation: {:.2f}'.format(var))        
+        print('\n>>> Shares to buy (1% risk): {:.2f}'.format(s))        
+        print('\n>>> Profit: {:.2f}'.format(s*var))
         print('\nMax shares to buy (using total portifolio): {:.2f}'.format(shares))
-        print('\nProfit: {:.2f}'.format(shares*var))
+        print('\n>>> Maximum Profit: {:.2f}'.format(shares*var))
         print('\n')
     except:
         print('Error getting data!')
@@ -172,10 +175,10 @@ def rol_mean():
     data.plot(subplots=False, grid=True, style='r', figsize=(8, 6))
     plt.title('Stock Market {} Index'.format(index))
     
-    window1 = int(input('Enter the rolling mean window 1:\n\n>>> '))
+    window1 = int(input('Enter the moving average window 1:\n\n>>> '))
     rol_mean_plot.plot(d_total[column], window1)
     
-    window2 = int(input('Enter the rolling mean window 2:\n\n>>> '))
+    window2 = int(input('Enter the moving average window 2:\n\n>>> '))
     rol_mean_plot.plot(d_total[column], window2)
     
     plt.legend(['Data', 'Rolling Mean {} days'.format(window1), 'Rolling Mean {} days'.format(window2)], loc='best')
@@ -228,6 +231,7 @@ def regr_index():
         plt.title('Returns Linear Regression: \n\n y = {:.5f} * x + {:.5f}'.format(fit[0],fit[1]))            
     except:
         print('Regression error!')
+
 
 
 
