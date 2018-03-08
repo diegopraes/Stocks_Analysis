@@ -3,7 +3,7 @@ from pandas_datareader import data as web
 import matplotlib.pyplot as plt
 import numpy as np
 
-bov = ['BBAS3', 'ABEV3', 'PETR3', 'ITUB4', 'RADL3', 'USIM5','VALE3', 'GGBR4', 'EMBR3', 'ELET3', 'RENT3', 'NATU3', 'MRVE3']
+bov = ['BBAS3', 'ABEV3', 'PETR3', 'ITUB4', 'RADL3', 'USIM5','VALE3', 'GGBR4', 'EMBR3', 'ELET3', 'RENT3', 'NATU3', 'MRVE3', 'FIBR', 'CMIG4', 'CPLE6']
 dj = ['XOM', 'AAPL', 'MCD', 'KO', 'CVX', 'BA', 'CAT', 'IBM', 'MMM', 'WMT', 'V', 'NKE']
 
 user_input = input('\n Enter: \n\n [bov] for Bovespa \n\n [dj] for Dow Jones \n\n>>> ' )
@@ -89,7 +89,7 @@ if user_input == 'bov':
                 print('\n>>> Daily variation: {:.2f}'.format(var))        
                 print('\n>>> Shares to buy (1% risk): {:.2f}'.format(s))        
                 print('\n>>> Profit: {:.2f}'.format(s*var))
-                print('\nMax shares to buy (using total portifolio): {:.2f}'.format(shares))
+                print('\n>>> Max shares to buy: {:.2f}'.format(shares))
                 print('\n>>> Maximum Profit: {:.2f}'.format(shares*var))
                 print('\n')
             
@@ -164,7 +164,7 @@ if user_input == 'dj':
                 print('\n>>> Daily variation: {:.2f}'.format(var))        
                 print('\n>>> Shares to buy (1% risk): {:.2f}'.format(s))        
                 print('\n>>> Profit: {:.2f}'.format(s*var))
-                print('\nMax shares to buy (using total portifolio): {:.2f}'.format(shares))
+                print('\n>>> Max shares to buy: {:.2f}'.format(shares))
                 print('\n>>> Maximum Profit: {:.2f}'.format(shares*var))
                 print('\n')
             
