@@ -11,17 +11,21 @@ Created on Sun Mar  4 17:50:47 2018   @author: DiegoPraes
 def menu():
     print('\n\n\n')
     print('==================================================================')
-    print('Stocks Analysis Python')
+    print('\n DeeP_Stock_Analysis @Python \n')
     print('==================================================================')
     print('\nMenu():')
     
-    user_input = input(" 'i' to evaluate 1 Index\n\n 'g' to get index list data\n\n 'p' to plot data\n\n 'm' to plot rolling mean\n\n 'r' to regression \n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
+    user_input = input(" 's' to search Index\n\n 'i' to evaluate 1 Index\n\n 'g' to evaluate index list data\n\n 'p' to plot data\n\n 'm' to plot moving average\n\n 'r' to regression \n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
-    while user_input not in ['g', 'i', 'p', 'm', 'r', 'a', 'd', 'q']:
-        user_input = input(" 'i' to evaluate 1 Index\n\n 'g' to get index list data\n\n 'p' to plot data\n\n 'm' to plot rolling mean\n\n 'r' to regression \n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
+    while user_input not in [ 's', 'g', 'i', 'p', 'm', 'r', 'a', 'd', 'q']:
+        user_input = input(" 's' to search Index\n\n 'i' to evaluate 1 Index\n\n 'g' to evaluate index list data\n\n 'p' to plot data\n\n 'm' to plot moving average\n\n 'r' to regression \n\n 'a' to correlation analysis\n\n 'd' to database access\n\n 'q' to quit\n\n>>> ")
     
-    if user_input != 'q':   
-        if user_input == 'g':
+    if user_input != 'q':
+        
+        if user_input == 's':
+            import Inteligent
+            
+        elif user_input == 'g':
             from get_indexes import all_index
             all_index()
             
@@ -73,9 +77,9 @@ menu()
 # DOW JONES:
 # 'XOM', 'AAPL', 'MCD', 'KO', 'CVX', 'BA', 'CAT', 'IBM', 'MMM', 'WMT', 'V', 'NKE'
 
-# $$$$
-# RADL3
+# $$$$ # RADL3 
 
+# ???? # HYPE3 
 
 
 
