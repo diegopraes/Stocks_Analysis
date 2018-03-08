@@ -88,14 +88,18 @@ def candlestick_rol_mean():
     
     # dateRange = pd.date_range(start, end, freq='D')
     
-    column = input('Define Plot: [ Open, Close, High or Low ]:\n\n>>> ')
+    column = input('Define values to Moving Average [ Open, Close, High or Low ]:\n\n>>> ')
     
-    quotes_total = Data.get(Data(index, datetime.datetime(int(dt[0]),int(dt[1])-2,int(dt[2])), end))
+    if int(dt[1])-2 < 0:
+        month = 1
+    else:
+        month = int(dt[1])-2
+    quotes_total = Data.get(Data(index, datetime.datetime(int(dt[0]),month,int(dt[2])), end))
     quotes = Data.get(Data(index, start, end))
     
-    window1 = int(input('Enter the rolling mean window 1:\n\n>>> '))
+    window1 = int(input('Enter the moving average window 1:\n\n>>> '))
     quotes['MA{}'.format(window1)] = quotes_total[column].rolling(window1).mean()
-    window2 = int(input('Enter the rolling mean window 2:\n\n>>> '))
+    window2 = int(input('Enter the moving average window 2:\n\n>>> '))
     quotes['MA{}'.format(window2)] = quotes_total[column].rolling(window2).mean()
     
     quotes.reset_index(inplace=True)
@@ -110,5 +114,47 @@ def candlestick_rol_mean():
     quotes['MA{}'.format(window1)].plot(ax=ax)
     quotes['MA{}'.format(window2)].plot(ax=ax)
     
-    plt.legend(['Data', 'Rolling Mean {} days'.format(window1), 'Rolling Mean {} days'.format(window2)], loc='best')    
+    plt.legend(['Rolling Mean {} days'.format(window1), 'Rolling Mean {} days'.format(window2)], loc='upper left')    
     plt.show()
+    
+    
+
+        
+
+    
+
+    
+    
+    
+        
+    
+    
+    
+   
+
+
+
+
+
+
+
+
+# Trying to change the x axis to dates ------------------------------------------
+"""
+xdate = [datetime.datetime.fromtimestamp(i) for i in dateRange]
+ax.xaxis.set_major_locator(ticker.MaxNLocator(6))
+
+def mydate(x,pos):
+    try:
+        return xdate[int(x)]
+    except IndexError:
+        return ''
+
+ax.xaxis.set_major_formatter(ticker.FuncFormatter(mydate))
+
+fig.autofmt_xdate()
+fig.tight_layout()
+
+
+plt.show()
+"""
