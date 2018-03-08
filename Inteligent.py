@@ -17,8 +17,7 @@ elif user_input == 'dj':
 portifolio = float(input('\nEnter the Portifolio Value:\n\n>>> '))     
 
 start = input('Enter the initial date [YYYY, MM, DD]:\n\n>>> ')
-dt = start.split(',')
-    
+dt = start.split(',')    
 
 end = input('Enter the end date [YYYY, MM, DD]:\n\n>>> ')
 st = end.split(',')
@@ -78,18 +77,26 @@ if user_input == 'bov':
                 var = float(ds['Close'][0]) - float(ds['Open'][0])
                 s = portifolio/100/var
                 shares = float(portifolio)/float(ds['Open'][0])
+            except:
+                print('Error getting data!')
+            
+            if s > 100:
                 print('\n\nIndex: {}\n'.format(i))
                 print(ds)
                 print('\n\ndate: {}'.format(end))
-                print('\nDaily variation: {:.2f}'.format(var))
-                print('\nBuy {:.2f} shares to 1% risk'.format(s))
+                print('\n\nPortifolio: R$ {:.2f}'.format(portifolio))
+                print('\n>>> Risk : {:.2f}'.format(abs(s*var)))
+                print('\n>>> Daily variation: {:.2f}'.format(var))        
+                print('\n>>> Shares to buy (1% risk): {:.2f}'.format(s))        
+                print('\n>>> Profit: {:.2f}'.format(s*var))
                 print('\nMax shares to buy (using total portifolio): {:.2f}'.format(shares))
-                print('\nProfit: {:.2f}'.format(shares*var))
+                print('\n>>> Maximum Profit: {:.2f}'.format(shares*var))
                 print('\n')
-            except:
-                print('Error getting data!')
-                
-                
+            
+            
+            
+
+               
 if user_input == 'dj':
     for i in dj:
         
@@ -145,13 +152,19 @@ if user_input == 'dj':
                 var = float(ds['Close'][0]) - float(ds['Open'][0])
                 s = portifolio/100/var
                 shares = float(portifolio)/float(ds['Open'][0])
+            except:
+                print('Error getting data!')
+            
+            if s > 100:
                 print('\n\nIndex: {}\n'.format(i))
                 print(ds)
                 print('\n\ndate: {}'.format(end))
-                print('\nDaily variation: {:.2f}'.format(var))
-                print('\nBuy {:.2f} shares to 1% risk'.format(s))
+                print('\n\nPortifolio: R$ {:.2f}'.format(portifolio))
+                print('\n>>> Risk : {:.2f}'.format(abs(s*var)))
+                print('\n>>> Daily variation: {:.2f}'.format(var))        
+                print('\n>>> Shares to buy (1% risk): {:.2f}'.format(s))        
+                print('\n>>> Profit: {:.2f}'.format(s*var))
                 print('\nMax shares to buy (using total portifolio): {:.2f}'.format(shares))
-                print('\nProfit: {:.2f}'.format(shares*var))
+                print('\n>>> Maximum Profit: {:.2f}'.format(shares*var))
                 print('\n')
-            except:
-                print('Error getting data!')
+            
