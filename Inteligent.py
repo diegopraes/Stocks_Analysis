@@ -14,7 +14,7 @@ if user_input == 'bov':
 elif user_input == 'dj':
     index_list = dj   
 
-portifolio = float(input('\nEnter the Portifolio Value:\n\n>>> '))     
+portifolio = float(input('\nEnter the Portifolio Value:\n\n>>> '))
 
 start = input('Enter the initial date [YYYY, MM, DD]:\n\n>>> ')
 dt = start.split(',')    
@@ -27,7 +27,8 @@ if user_input == 'bov':
 elif user_input =='dj':
     index_list = dj    
 
-selection = []    
+selection = []
+possible_to_buy = []    
 
 for i in index_list:
     
@@ -69,30 +70,55 @@ for i in index_list:
             def get(self):
                 return web.DataReader(self.index, 'google', self.date)    
         try:
-            ds = Data_synt.get(Data_synt(i, end))        
-            var = float(ds['Close'][0]) - float(ds['Open'][0])
-            shares = portifolio/100/var
-            max_shares = float(portifolio)/float(ds['Open'][0])
-            risk = abs(shares*var)
-            profit = shares*var
-            max_profit = max_shares*var
+            ds = Data_synt.get(Data_synt(i, end))
         except:
-            print('Error getting data!')
+            print('\nError in ds!')
+            
+        var = float(ds['Close'][0]) - float(ds['Open'][0])
+        if var != 0:
+            shares = portifolio/100/var
+        else:
+            print('\nNo variation!')
+            pass
+        max_shares = float(portifolio)/float(ds['Open'][0])
+        risk = abs(shares*var)
+        profit = shares*var
+        max_profit = max_shares*var
+            
+        try:
+            d = Data.get(Data(i, start, end))
+            predict = min(d['Close'][:])
+        except:
+            print('\nError in d!')
+            
+        predict_var = predict - float(ds['Open'][0])         
+        predict_shares = portifolio/100/abs(predict_var)
+        predict_max_loss = max_shares*predict_var
+            
         
         if shares > 100:
+            possible_to_buy.append(i)
+            
             if max_profit > risk:
                 selection.append(i)
                 print('\n\n\nIndex: {}\n'.format(i))
                 print(ds)
                 print('\n\ndate: {}'.format(end))
                 print('\n\nPortifolio: R$ {:.2f}'.format(portifolio))
+                print('\n>>> 1 % : {:.2f}'.format(portifolio/100))
+                print('\n>>> Day variation: {:.2f}'.format(var))        
+                print('\n>>> Shares to buy (1% risk): {:.2f}'.format(shares)) 
                 print('\n>>> Risk : {:.2f}'.format(risk))
-                print('\n>>> Daily variation: {:.2f}'.format(var))        
-                print('\n>>> Shares to buy (1% risk): {:.2f}'.format(shares))        
                 print('\n>>> Profit: {:.2f}'.format(profit))
                 print('\n>>> Max shares to buy: {:.2f}'.format(max_shares))
                 print('\n>>> Maximum Profit: {:.2f}'.format(max_profit))
                 print('\n')
+                print('\n Minimum Close Value: {}'.format(predict))
+                print('\n Prediction:')                                
+                print('\n>>> Maximum variation: {:.2f}'.format(predict_var))        
+                print('\n>>> Shares to buy (1% risk): {:.2f}'.format(predict_shares))
+                print('\n>>> Maximum Loss: {:.2f}'.format(predict_max_loss))
 
-print(selection)
+print('\n\n\nSelection: {}'.format(selection))
+print('\nPossible to buy: {}'.format(possible_to_buy))
 
