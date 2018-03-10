@@ -49,7 +49,8 @@ for i in index_list:
         def get(self):
             return web.DataReader(self.index, 'google', self.start, self.end)
 
-    d = Data.get(Data(i, start, end))
+    
+    d = Data.get(Data(i, datetime.datetime(2009,1,1), end))
     data = d['Close'].tolist()
     data_array = np.array(data)        
     x = []
@@ -58,18 +59,13 @@ for i in index_list:
         x.append(j+1)
         j = j+1        
     try:
-        fit = np.polyfit(x, data_array, deg=1)
-        fit_fn = np.poly1d(fit)                
+        fit_all = np.polyfit(x, data_array, deg=1)
+        fit_fn = np.poly1d(fit_all)                
     except:
         print('Regression error!')     
+       
     
-    if fit[0] < 0:
-        d['MA10'] = d['Close'].rolling(10).mean() 
-        n = int(len(d))-1
-        if d['Close'][n] > d['MA10'][n]:
-            signal.append(i)    
-    
-    if fit[0] > 0:       
+    if fit_all[0] > 0:       
         
         class Data_synt:  
             def __init__(self, index, date):
@@ -133,7 +129,27 @@ for i in index_list:
                     print('\n>>> Maximum Loss: {:.2f}'.format(predict_max_loss))
                 except:
                     print('Error')
-                    continue                
+                    continue
+
+    d = Data.get(Data(i, start, end))
+    data = d['Close'].tolist()
+    data_array = np.array(data)        
+    x = []
+    j = 0            
+    while len(x) < len(data):
+        x.append(j+1)
+        j = j+1        
+    try:
+        fit_last = np.polyfit(x, data_array, deg=1)
+        fit_fn = np.poly1d(fit_last)                
+    except:
+        print('Regression error!')     
+    
+    if fit_last[0] < 0:
+        d['MA10'] = d['Close'].rolling(10).mean() 
+        n = int(len(d))-1
+        if d['Close'][n] > d['MA10'][n]:
+            signal.append(i)                
 
 print('\n\n\nSelection: {}'.format(selection))              # up, +100 shares, profit > risk
 print('\nPossible to buy: {}'.format(possible_to_buy))      # up, +100 shares
