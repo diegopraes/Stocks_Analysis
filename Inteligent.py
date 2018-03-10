@@ -28,7 +28,9 @@ elif user_input =='dj':
     index_list = dj    
 
 selection = []
-possible_to_buy = []    
+possible_to_buy = []
+up_trend = []
+signal = []
 
 for i in index_list:
     
@@ -57,9 +59,9 @@ for i in index_list:
         fit = np.polyfit(x, data_array, deg=1)
         fit_fn = np.poly1d(fit)                
     except:
-        print('Regression error!')        
+        print('Regression error!')     
     
-
+    
     if fit[0] > 0:       
         
         class Data_synt:  
@@ -80,6 +82,7 @@ for i in index_list:
         else:
             print('\nNo variation!')
             pass
+        
         max_shares = float(portifolio)/float(ds['Open'][0])
         risk = abs(shares*var)
         profit = shares*var
@@ -94,10 +97,17 @@ for i in index_list:
         predict_var = predict - float(ds['Open'][0])         
         predict_shares = portifolio/100/abs(predict_var)
         predict_max_loss = max_shares*predict_var
-            
+        
+        d['MA10'] = d['Close'].rolling(10).mean() 
+        n = int(len(d))-1
+        if d['Close'][n] > d['MA10'][n]:
+            signal.append(i)            
         
         if shares > 100:
             possible_to_buy.append(i)
+            
+            if max_profit > 0:
+                    up_trend.append(i)
             
             if max_profit > risk:
                 selection.append(i)
@@ -121,8 +131,26 @@ for i in index_list:
                     print('\n>>> Maximum Loss: {:.2f}'.format(predict_max_loss))
                 except:
                     print('Error')
-                    continue
+                    continue                
 
 print('\n\n\nSelection: {}'.format(selection))
 print('\nPossible to buy: {}'.format(possible_to_buy))
+print('\nUp Trend: {}'.format(up_trend))
+print('\nSignal: {}'.format(signal))
+
+
+
+
+#for ind in selection:    
+#    
+#    quotes = Data.get(Data(index, start, end))    
+#    
+#    fig, ax = plt.subplots(figsize=(8,6))
+#    candlestick2_ohlc(ax, quotes['Open'], quotes['High'], quotes['Low'], quotes['Close'], width=0.6)
+#    plt.xticks(rotation = 45)
+#    plt.title('Stock Index {}'.format(index))
+#    plt.xlabel('Days in period [{} - {}]'.format(start, end))
+#    plt.ylabel('{} Price'.format(index))
+#    
+#    plt.show()
 
