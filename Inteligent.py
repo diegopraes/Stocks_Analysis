@@ -3,7 +3,6 @@ from pandas_datareader import data as web
 import numpy as np
 from matplotlib.finance import candlestick2_ohlc
 import matplotlib.pyplot as plt
-import pandas as pd
 
 
 bov = ['BBAS3', 'ABEV3', 'PETR3', 'ITUB4', 'RADL3', 'USIM5', 'VALE3', 'GGBR4', 'EMBR3', 'ELET3', 'RENT3', 'NATU3', 'CMIG4', 'GOAU4', 'BTOW3', 'AZUL4', 'CCRO3', 'LREN3', 'IRBR3', 'UGPA3', 'QUAL3', 'BRDT3', 'BBSE3', 'CIEL3', 'BRAP4', 'CSNA3', 'ESTC3', 'SLCE3', 'ELET3', 'LIGT3', 'OIBR3', 'BRML3', 'ENGI11', 'EQTL3', 'DMMO3', 'CVCB3', 'JBSS3', 'VIVT4', 'KLBN11', 'IGTA3', 'SULA11', 'TIMP3', 'CRFB3', 'RAIL3', 'MULT3', 'GOLL4', 'BRKM5', 'SBSP3', 'VVAR11', 'BRSR6', 'BBDC3', 'SANB11', 'FLRY3', 'PCAR4', 'CYRE3', 'MDIA3', 'WEGE3', 'CSAN3', 'CPFE3', 'MPLU3', 'LAME3', 'ECOR3', 'EGIE3', 'PSSA3', 'CSMG3', 'ARZZ3', 'HGTX3', 'TOTS3', 'PARD3']
@@ -50,7 +49,6 @@ for i in index_list:
         def get(self):
             return web.DataReader(self.index, 'google', self.start, self.end)
 
-
     d = Data.get(Data(i, start, end))
     data = d['Close'].tolist()
     data_array = np.array(data)        
@@ -65,6 +63,11 @@ for i in index_list:
     except:
         print('Regression error!')     
     
+    if fit[0] < 0:
+        d['MA10'] = d['Close'].rolling(10).mean() 
+        n = int(len(d))-1
+        if d['Close'][n] > d['MA10'][n]:
+            signal.append(i)    
     
     if fit[0] > 0:       
         
@@ -100,12 +103,7 @@ for i in index_list:
             
         predict_var = predict - float(ds['Open'][0])         
         predict_shares = portifolio/100/abs(predict_var)
-        predict_max_loss = max_shares*predict_var
-        
-        d['MA10'] = d['Close'].rolling(10).mean() 
-        n = int(len(d))-1
-        if d['Close'][n] > d['MA10'][n]:
-            signal.append(i)            
+        predict_max_loss = max_shares*predict_var                   
         
         if shares > 100:
             possible_to_buy.append(i)
@@ -150,7 +148,7 @@ while option not in ['y', 'n']:
     option = input("\nPlot the selected Indexes chart ?\n\n 'y' for yes\n\n 'n' for no\n\n>>> ")
 
 if option == 'y':
-    for i in selection:
+    for i in signal:
     
         class Data:    
             def __init__(self, index, start, date):
@@ -175,10 +173,12 @@ if option == 'y':
         
           
         if int(dt[1])-2 < 0:
-            month = 1
+            month = int(dt[1]) + 8
+            year = int(dt[0]) - 1
         else:
-            month = int(dt[1])-2
-        quotes_total = Data.get(Data(i, datetime.datetime(int(dt[0]),month,int(dt[2])), end))
+            month = int(dt[1])-3
+            year = int(dt[0])
+        quotes_total = Data.get(Data(i, datetime.datetime(year,month,int(dt[2])), end))
         quotes = Data.get(Data(i, start, end))
         
     
@@ -207,4 +207,3 @@ if option == 'y':
         plt.show()
 elif option == 'n':
     pass
-
