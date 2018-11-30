@@ -50,7 +50,7 @@ class CursorFromConnectionFromPool:
 
 
 def database_access():
-    connection = psycopg2.connect(database = 'learning', user='postgres', password='u6j2p2a3', host='localhost')
+    connection = psycopg2.connect(database = 'learning', user='postgres', password='database_password', host='localhost')
     cursor = connection.cursor()
     
     def create_table(table):
